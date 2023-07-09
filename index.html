@@ -9,7 +9,7 @@
         height: 400px;
         width: 100%;
         position: relative;
-        transition: all .3s cubic-bezier(0.165, 0.84, 0.44, 1);
+
 
     }
     .slider img{
@@ -40,12 +40,21 @@
     }
     .slider .slide-content{
         display: flex;
-        flex-direction: ;
+        flex-direction: column;
+        justify-content: flex-end;
+    }
+    .slider .slider-slide{
+        opacity: 0;
+    }
+    .slider .slider-slide.active-slide{
+        transition: all .3s cubic-bezier(0.165, 0.84, 0.44, 1);
+        opacity: 1;
     }
 </style>
 </head>
 
 <body>
+    <button id="btn">change</button>
     <script src="./assets/js/slider.js"></script>
 </body>
 
