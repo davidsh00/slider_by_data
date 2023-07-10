@@ -4,57 +4,132 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-<style>
-    .slider{
-        height: 400px;
-        width: 100%;
-        position: relative;
+    <style>
+        .slider {
+            direction: rtl;
+            height: 400px;
+            width: 100%;
+            position: relative;
 
 
-    }
-    .slider img{
-        object-fit: cover;
-        width: 100%;
-        
-    }
-    .slider a{
-        color:inherit;
-        text-decoration: none;
-    }
-    .slider *,.slider{
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    }
-    .slider ul,.slider li{
-        list-style: none;
-    }
-    .slider .slider-slide>a{
-        width: 100%;
-        height: 100%;
-    }
-    .slider .slider-slid,.slider .slider-slide img , .slider .slide-content{
-        width: 100%;
-        height: 100%;
-        position: absolute;
-    }
-    .slider .slide-content{
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-    }
-    .slider .slider-slide{
-        opacity: 0;
-    }
-    .slider .slider-slide.active-slide{
-        transition: all .3s cubic-bezier(0.165, 0.84, 0.44, 1);
-        opacity: 1;
-    }
-</style>
+        }
+
+        .slider img {
+            object-fit: cover;
+            width: 100%;
+
+        }
+
+        .slider a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .slider *,
+        .slider {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .slider ul,
+        .slider li {
+            list-style: none;
+        }
+
+        .slider .slider-slide>a {
+            width: 100%;
+            height: 100%;
+        }
+
+        .slider .slider-slid,
+        .slider .slider-slide img,
+        .slider .slide-content {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+        }
+
+        .slider .slide-content {
+            
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: radial-gradient(transparent, #0606064d);
+            color: white;
+            gap: 1rem;
+        }
+
+        .slider .slider-slide {
+            opacity: 0;
+            visibility: hidden;
+            transition: all .3s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .slider .slider-slide.active-slide {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .slide-content h3 {
+            opacity: 0;
+            margin-right: 2rem;
+            margin-top: 7%;
+            font-size: 3rem;
+            text-transform: uppercase;
+        }
+
+        .slide-content .slide-des-wrapper {
+            margin-bottom: 7%;
+
+            background-color: #eeeeee96;
+            font-weight: bold;
+            color: black;
+            overflow: hidden;
+            max-width: 0;
+
+        }
+
+        .slide-content p {
+            padding: 1rem;
+            min-width: 100vw;
+        }
+
+        .active-slide .slide-des-wrapper {
+            animation: desAnim 1s 1.25s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275)
+        }
+
+        .active-slide .slide-content h3 {
+            animation: fade 1s .25s forwards ease-in-out
+        }
+
+        @keyframes desAnim {
+            from {
+                max-width: 0;
+            }
+
+            to {
+
+                max-width: 100%
+            }
+        }
+
+        @keyframes fade {
+            from {
+                opacity: 0;
+            }
+
+            to {
+
+                opacity: 100%
+            }
+        }
+    </style>
 </head>
 
 <body>
     <button id="btn">change</button>
+    <button id="btn1">stop</button>
     <script src="./assets/js/slider.js"></script>
 </body>
 

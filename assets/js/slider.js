@@ -2,23 +2,23 @@ const sliderData = [
   {
     image: "/assets/img/chemistry.png",
     id: "chemistry",
-    title: "title",
+    title: "سامانه آزمایشگاه",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis nulla sequi adipisci mollitia dicta qui. Laborum illo aut quam similique!",
+      "طراحان سایت هنگام طراحی قالب سایت معمولا با این موضوع رو برو هستند که محتوای اصلی صفحات آماده نیست. در نتیجه طرح کلی دید درستی به کار فرما نمیدهد. اگر طراح بخواه",
   },
   {
     image: "/assets/img/retired.png",
     id: "retired",
-    title: "title2",
+    title: "سامانه بازنشستگی",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis nulla sequi adipisci mollitia dicta qui. Laborum illo aut quam similique!",
+      "از آنجا که لورم ایپسوم، شباهت زیادی به متن های واقعی دارد، طراحان معمولا از لورم ا",
   },
   {
     image: "/assets/img/supplier.png",
     id: "supplier",
-    title: "title3",
+    title: "سامانه مواد اولیه",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis nulla sequi adipisci mollitia dicta qui. Laborum illo aut quam similique!",
+      "اگر در ویرایشگر کدنویسی پلاگین ایمت (emmet) نصب شده است می‌توانید از آن برای تولید خودکار لورم ایپسوم برای پر کردن فضای متنی استفاده کنید.",
     href: "www.google.com",
   },
 ];
@@ -45,10 +45,12 @@ function addSlider(data, sliderContainer) {
     const slideImg = document.createElement("img");
     const slideContent = document.createElement("div");
     const slideDes = document.createElement("p");
+    const slideDesWrapper = document.createElement("div");
     const slideTitle = document.createElement("h3");
 
     slideImg.src = slide.image;
     slideImg.alt = slide.title;
+    slideImg.classList.add("slide-bg");
 
     slideContainer.classList.add("slider-slide");
     slideContainer.classList.add(slide.id);
@@ -56,10 +58,12 @@ function addSlider(data, sliderContainer) {
 
     slideContent.classList.add("slide-content");
 
+    slideDesWrapper.classList.add("slide-des-wrapper");
+
     slideTitle.innerHTML = slide.title;
     slideDes.innerHTML = slide.description;
-
-    slideContent.append(slideTitle, slideDes);
+    slideDesWrapper.append(slideDes);
+    slideContent.append(slideTitle, slideDesWrapper);
     if (slide.href) {
       const linkTag = document.createElement("a");
       linkTag.href = slide.href;
@@ -95,18 +99,41 @@ function addSlider(data, sliderContainer) {
     }
   }
   function autoPlay(status) {
-    
-    function start() {}
-    function stop() {}
+    let playStatus = "";
+    const timer = 5000;
+    let t1;
+
+    function start() {
+      console.log("start triggerd");
+
+        playStatus = "start";
+        clearTimeout(t1)
+        t1 = setTimeout(() => {
+          if (playStatus === "start") {
+            changeSlide();
+            start();
+          }
+        }, timer);
+      
+    }
+    function stop() {
+      console.log("stop triggerd");
+      playStatus = "stop";
+      clearTimeout(t1);
+    }
     function pause() {}
     return { start, stop, pause };
   }
 
   sliderPlay = autoPlay();
-  return { changeSlide };
+  return { changeSlide, autoplay: sliderPlay };
 }
 const slider1 = addSlider(sliderData);
 
-btn.addEventListener("click", () => {
-  slider1.changeSlide("");
+document.getElementById("btn").addEventListener("click", () => {
+  slider1.autoplay.start();
+});
+
+document.getElementById("btn1").addEventListener("click", () => {
+  slider1.autoplay.stop();
 });
