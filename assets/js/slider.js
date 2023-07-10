@@ -4,7 +4,7 @@ const sliderData = [
     id: "chemistry",
     title: "سامانه آزمایشگاه",
     description:
-      "طراحان سایت هنگام طراحی قالب سایت معمولا با این موضوع رو برو هستند که محتوای اصلی صفحات آماده نیست. در نتیجه طرح کلی دید درستی به کار فرما نمیدهد. اگر طراح بخواه",
+      "مدیریت خدمات و امور رفاهی( سرپرستی ورزش همگانی) در نظر دارد نسبت به پیش ثبت نام استخر پرسنل بازنشسته و خانواده های محترم ایشان طبق شرایط زیر در سال 1402 اقدام نماید . با توجه به پیاده سازی و اجرای اتوماسیون جدید ورزش و لزوم صدور کارتهای الکترونیکی جهت کنترل ورود استفاده کنندگان از اماکن ورزشی تحت پوشش و طرف قرارداد شرکت سهامی ذوب آهن اصفهان کلیه افراد متقاضی میبایست از طریق این پرتابل نسبت به تکمیل و ویرایش مشخصات خود و افراد تحت تکفل ایشان همچنین بارگذاری عکس جدید پرسنلی اقدام نمایند.",
   },
   {
     image: "/assets/img/retired.png",
@@ -24,11 +24,6 @@ const sliderData = [
 ];
 const btn = document.getElementById("btn");
 function addSlider(data, sliderContainer) {
-  function setStyle(elem, styleObj) {
-    for (const key in styleObj) {
-      elem[key] = styleObj[key];
-    }
-  }
   //   define var
   const container = sliderContainer || document.body;
   const sliderWrapper = document.createElement("section");
@@ -104,29 +99,38 @@ function addSlider(data, sliderContainer) {
     let t1;
 
     function start() {
-      console.log("start triggerd");
-
-        playStatus = "start";
-        clearTimeout(t1)
-        t1 = setTimeout(() => {
-          if (playStatus === "start") {
-            changeSlide();
-            start();
-          }
-        }, timer);
-      
+      playStatus = "start";
+      clearTimeout(t1);
+      t1 = setTimeout(() => {
+        if (playStatus === "start") {
+          changeSlide();
+          start();
+        }
+      }, timer);
     }
     function stop() {
-      console.log("stop triggerd");
       playStatus = "stop";
       clearTimeout(t1);
     }
     function pause() {}
     return { start, stop, pause };
   }
+  function sliderExtraCards(cardsArr) {
+    cardsArr.forEach(({ card, id }) => {
+      card.addEventListener("mouseenter", () => {
+        console.log("mouseEnter", id);
+        sliderPlay.stop();
+        changeSlide(id);
+      });
+      card.addEventListener("mouseleave", () => {
+        console.log("mouse leave", id);
+        sliderPlay.start();
+      });
+    });
+  }
 
   sliderPlay = autoPlay();
-  return { changeSlide, autoplay: sliderPlay };
+  return { changeSlide, autoplay: sliderPlay, extraCards: sliderExtraCards };
 }
 const slider1 = addSlider(sliderData);
 

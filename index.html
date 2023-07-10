@@ -10,7 +10,7 @@
             height: 400px;
             width: 100%;
             position: relative;
-
+            overflow: hidden;
 
         }
 
@@ -43,7 +43,7 @@
         }
 
         .slider .slider-slid,
-        .slider .slider-slide img,
+        .slider .slider-slide .slide-bg,
         .slider .slide-content {
             width: 100%;
             height: 100%;
@@ -51,7 +51,7 @@
         }
 
         .slider .slide-content {
-            
+
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -71,7 +71,7 @@
             visibility: visible;
         }
 
-        .slide-content h3 {
+        .slider .slide-content h3 {
             opacity: 0;
             margin-right: 2rem;
             margin-top: 7%;
@@ -79,7 +79,7 @@
             text-transform: uppercase;
         }
 
-        .slide-content .slide-des-wrapper {
+        .slider .slide-content .slide-des-wrapper {
             margin-bottom: 7%;
 
             background-color: #eeeeee96;
@@ -90,17 +90,30 @@
 
         }
 
-        .slide-content p {
+        .slider .slide-content p {
             padding: 1rem;
             min-width: 100vw;
         }
 
-        .active-slide .slide-des-wrapper {
+        .slider .active-slide .slide-des-wrapper {
             animation: desAnim 1s 1.25s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275)
         }
 
-        .active-slide .slide-content h3 {
+        .slider .active-slide .slide-content h3 {
             animation: fade 1s .25s forwards ease-in-out
+        }
+
+        .slider .slider-slide.active-slide .slide-bg {
+            transition: all .4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            
+        }
+        .slider .slider-slide.active-slide .slide-bg {
+            animation: imageZoom 7s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            
+        }
+
+        .slider .slider-slide:hover .slide-bg {
+filter: grayscale(.7);
         }
 
         @keyframes desAnim {
@@ -124,12 +137,25 @@
                 opacity: 100%
             }
         }
+
+        @keyframes imageZoom {
+            to {
+                transform: scale(1.1);
+            }
+        }
     </style>
 </head>
 
 <body>
     <button id="btn">change</button>
     <button id="btn1">stop</button>
+    <ul class="list">
+        <li class="card">card1</li>
+        <li class="card">i</li>
+        <li class="card">card3</li>
+        <li class="card">i</li>
+        <li class="card">i</li>
+    </ul>
     <script src="./assets/js/slider.js"></script>
 </body>
 
